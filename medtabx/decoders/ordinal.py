@@ -1,0 +1,27 @@
+"""Ordinal decoder."""
+
+import torch
+import torch.nn as nn
+
+from ..core.registry import decoder_registry
+
+
+@decoder_registry.register("ordinal")
+class OrdinalDecoder(nn.Module):
+    """Predict ordered thresholds for ordinal targets."""
+
+    def __init__(self, embedding_dim: int, num_levels: int, pooling: str = "mean"):
+        super().__init__()
+        if num_levels < 2:
+            raise ValueError("num_levels must be >= 2 for ordinal prediction.")
+        self.pooling = pooling
+        self.fc = nn.Linear(embedding_dim, num_levels - 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        if self.pooling == "mean":
+            pooled = x.mean(dim=1)
+        elif self.pooling == "max":
+            pooled = x.max(dim=1)[0]
+        else:
+            raise ValueError(f"Unknown pooling: {self.pooling}")
+        return self.fc(pooled)

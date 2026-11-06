@@ -1,0 +1,112 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medtabx"
+version = "0.1.0"
+description = "Multimodal tabular learning for clinical data: a typed data contract, a shared testbed and failure-aware fusion"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Shun Liu", email = "sliu267@jh.edu"},
+    {name = "Andreia V. Faria", email = "afaria1@jhmi.edu"},
+]
+keywords = ["multimodal learning", "tabular learning", "tabular foundation models",
+            "missing modalities", "medical imaging", "pytorch"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "scipy>=1.10",
+    "pyyaml>=6.0",
+    "tqdm>=4.60",
+    "pillow>=9.0",
+    "nibabel>=5.0",
+    "SimpleITK>=2.0",
+]
+
+[project.optional-dependencies]
+learners = [
+    "xgboost>=2.0",
+    "lightgbm>=4.0",
+    "catboost>=1.2",
+    "tabpfn>=2.0",
+    "optuna>=3.0",
+]
+imaging = [
+    "pydicom>=2.0",
+    "antspyx>=0.4",
+    "scikit-image>=0.20",
+]
+signals = [
+    "mne>=1.0",
+    "wfdb>=4.1",
+]
+text = [
+    "transformers>=4.30",
+    "sentence-transformers>=2.2",
+]
+app = [
+    "gradio>=4.0",
+]
+encoders = [
+    "monai>=1.3",
+    "safetensors>=0.4",
+    "huggingface_hub>=0.20",
+]
+experiments = [
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "statsmodels>=0.14",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=3.0",
+    "ruff>=0.1",
+]
+all = [
+    "medtabx[learners,imaging,signals,text,app,encoders,experiments]",
+]
+
+[project.urls]
+Repository = "https://github.com/randomrisk/medtabx"
+
+[project.scripts]
+medtabx-train = "medtabx.cli.train:main"
+medtabx-evaluate = "medtabx.cli.evaluate:main"
+medtabx-predict = "medtabx.cli.inference:main"
+medtabx-build-ads-features = "medtabx.cli.build_ads_features:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["medtabx*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.yaml", "*.yml", "*.txt", "*.nii", "*.nii.gz", "*.pkl", "*.mat", "*.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: runs real image registration (deselect with '-m \"not slow\"')",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"

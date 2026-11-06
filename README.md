@@ -104,5 +104,5 @@ Tests that need files that are not in this repository are skipped.
 
 ## License
 
-MIT License (see `LICENSE`). The package includes third-party code under its
+JHU Non-Profit Research Software License Agreement (see `LICENSE`). The package includes third-party code under its
 own licenses; see `THIRD_PARTY_NOTICES.md`.

@@ -73,7 +73,7 @@ tokens = encode_images({"dwi": dwi_paths}, encoder="medicalnet_resnet10")
 
 | Name | Token width | Weights | License of the weights |
 |---|---|---|---|
-| `resenc_unet_b` | 320 | Your checkpoint of the residual U-Net-B encoder (FOMO challenge baseline architecture), for example FOMO baseline weights or self-supervised weights such as LeJEPA pretraining on FOMO300K | Depends on the checkpoint |
+| `resenc_unet_b` | 320 | residual U-Net-B encoder (FOMO challenge baseline architecture) | Depends on the checkpoint |
 | `medicalnet_resnet10`, `medicalnet_resnet50` | 512, 2048 | MedicalNet (Med3D), downloaded by MONAI | MIT |
 | `swinunetr_ssl` | 768 | Swin UNETR self-supervised weights (Tang et al., CVPR 2022), downloaded from the MONAI release | Apache-2.0 |
 | `brainiac_vit_b` | 768 | BrainIAC ViT-B/16 (Tak et al., 2026); download the checkpoint from the BrainIAC project | Non-commercial research |
